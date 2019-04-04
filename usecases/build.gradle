@@ -1,0 +1,12 @@
+apply plugin: 'java-library'
+apply plugin: 'org.jetbrains.kotlin.jvm'
+
+dependencies {
+    implementation project(':data')
+    implementation project(':domain')
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "org.koin:koin-core:$koinVersion"
+    testImplementation "junit:junit:$jUnitVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation "android.arch.core:core-testing:$coreTestingVersion"
+}

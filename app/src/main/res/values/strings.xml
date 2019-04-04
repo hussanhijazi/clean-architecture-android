@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Chuck Norris App</string>
+    <string name="search">Search</string>
+    <string name="send_to">Send</string>
+    <string name="enter_your_search_term">Enter your search term</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="past_searches">Past Searches</string>
+    <string name="uncategorized">Uncategorized</string>
+    <string name="error_message">An error has occurred. Please try again</string>
+    <string name="no_results">No results, try again</string>
+</resources>
