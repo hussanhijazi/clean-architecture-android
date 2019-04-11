@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import br.com.hussan.cache.cleanarch.model.SearchEntity
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface SearchDao {
@@ -14,5 +14,5 @@ interface SearchDao {
     fun insert(search: SearchEntity): Completable
 
     @Query("SELECT * from search order by searchedAt desc")
-    fun loadSearches(): Flowable<List<SearchEntity>>
+    fun loadSearches(): Single<List<SearchEntity>>
 }

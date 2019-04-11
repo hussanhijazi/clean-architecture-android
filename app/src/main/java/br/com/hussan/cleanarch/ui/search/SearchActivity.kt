@@ -50,7 +50,7 @@ class SearchActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 searchAdapter.setItems(it)
-            }, {}, {})
+            }, {})
             .add(compositeDisposable)
     }
 
@@ -60,7 +60,7 @@ class SearchActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 lytCategories.setData(it.map { it.name ?: "" }, ::categoryClicked)
-            }, {}, {})
+            }, {})
             .add(compositeDisposable)
     }
 

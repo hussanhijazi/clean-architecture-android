@@ -2,7 +2,7 @@ package br.com.hussan.cleanarch.usecases
 
 import br.com.hussan.cleanarch.data.datasource.CategoryDatasource
 import br.com.hussan.cleanarch.domain.Category
-import io.reactivex.Flowable
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,7 +25,7 @@ class GetCategoriesTest {
     fun `Get categories call locally`() {
         val categories = listOf(Category(1, "Chuck Norris"))
 
-        `when`(repository.getCategories()).thenReturn(Flowable.just(categories))
+        `when`(repository.getCategories()).thenReturn(Single.just(categories))
 
         getCategories.invoke().test()
             .assertValue(categories)
@@ -40,7 +40,7 @@ class GetCategoriesTest {
     @Test
     fun `Get categories call locally with error`() {
         val exception = Exception()
-        `when`(repository.getCategories()).thenReturn(Flowable.error(exception))
+        `when`(repository.getCategories()).thenReturn(Single.error(exception))
 
         getCategories.invoke().test().assertError(exception)
 

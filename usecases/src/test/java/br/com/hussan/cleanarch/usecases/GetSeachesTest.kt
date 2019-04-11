@@ -2,7 +2,7 @@ package br.com.hussan.cleanarch.usecases
 
 import br.com.hussan.cleanarch.data.datasource.SearchDatasource
 import br.com.hussan.cleanarch.domain.Search
-import io.reactivex.Flowable
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,7 +25,7 @@ class GetSeachesTest {
     fun `Get search call locally`() {
         val searches = listOf(Search("car"))
 
-        `when`(repository.getSearches()).thenReturn(Flowable.just(searches))
+        `when`(repository.getSearches()).thenReturn(Single.just(searches))
 
         getSearches.invoke().test()
             .assertValue(searches)
@@ -40,7 +40,7 @@ class GetSeachesTest {
     @Test
     fun `Get search call locally with error`() {
         val exception = Exception()
-        `when`(repository.getSearches()).thenReturn(Flowable.error(exception))
+        `when`(repository.getSearches()).thenReturn(Single.error(exception))
 
         getSearches.invoke().test().assertError(exception)
 

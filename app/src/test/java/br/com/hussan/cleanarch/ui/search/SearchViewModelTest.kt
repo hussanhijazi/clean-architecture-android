@@ -5,7 +5,7 @@ import br.com.hussan.cleanarch.domain.Category
 import br.com.hussan.cleanarch.domain.Search
 import br.com.hussan.cleanarch.usecases.GetCategories
 import br.com.hussan.cleanarch.usecases.GetSearches
-import io.reactivex.Flowable
+import io.reactivex.Single
 import mock
 import org.junit.Before
 import org.junit.Rule
@@ -31,7 +31,7 @@ class SearchViewModelTest {
     fun `Get categories locally`() {
 
         val categories = listOf(Category(1, "Dev"))
-        `when`(getCategoryCase.invoke()).thenReturn(Flowable.fromArray(categories))
+        `when`(getCategoryCase.invoke()).thenReturn(Single.just(categories))
 
         mViewModel.getCategories()
             .test()
@@ -46,7 +46,7 @@ class SearchViewModelTest {
     fun `Get categories locally with error`() {
 
         val exception = Exception()
-        `when`(getCategoryCase.invoke()).thenReturn(Flowable.error(exception))
+        `when`(getCategoryCase.invoke()).thenReturn(Single.error(exception))
 
         mViewModel.getCategories()
             .test()
@@ -60,7 +60,7 @@ class SearchViewModelTest {
     fun `Get searches locally`() {
 
         val searches = listOf(Search("Dev"))
-        `when`(getSearchCase.invoke()).thenReturn(Flowable.fromArray(searches))
+        `when`(getSearchCase.invoke()).thenReturn(Single.just(searches))
 
         mViewModel.getSearches()
             .test()
@@ -75,7 +75,7 @@ class SearchViewModelTest {
     fun `Get searches locally with error`() {
 
         val exception = Exception()
-        `when`(getSearchCase.invoke()).thenReturn(Flowable.error(exception))
+        `when`(getSearchCase.invoke()).thenReturn(Single.error(exception))
 
         mViewModel.getSearches()
             .test()

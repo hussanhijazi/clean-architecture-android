@@ -4,14 +4,14 @@ import br.com.hussan.cache.cleanarch.mapper.CategoryEntityMapper
 import br.com.hussan.cleanarch.data.cache.CategoryCache
 import br.com.hussan.cleanarch.domain.Category
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 class CategoryCacheImpl(
     private val db: AppDatabase,
     private val mapper: CategoryEntityMapper
 ) :
     CategoryCache {
-    override fun getCategories(): Flowable<List<Category>> {
+    override fun getCategories(): Single<List<Category>> {
         return db.categoryDao().loadCategories().map { it.map { mapper.mapFromCached(it) } }
     }
 

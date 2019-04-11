@@ -4,7 +4,6 @@ import br.com.hussan.cache.cleanarch.mapper.FactEntityMapper
 import br.com.hussan.cleanarch.data.cache.FactCache
 import br.com.hussan.cleanarch.domain.Fact
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.Single
 
 class FactCacheImpl(
@@ -16,7 +15,7 @@ class FactCacheImpl(
         return db.factDao().loadRandomFacts().map { it.map { mapper.mapFromCached(it) } }
     }
 
-    override fun getFacts(query: String): Flowable<List<Fact>> {
+    override fun getFacts(query: String): Single<List<Fact>> {
         return db.factDao().loadFacts(query).map { it.map { mapper.mapFromCached(it) } }
     }
 

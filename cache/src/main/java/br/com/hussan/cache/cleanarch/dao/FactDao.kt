@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import br.com.hussan.cache.cleanarch.model.FactEntity
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.Single
 
 @Dao
@@ -15,7 +14,7 @@ interface FactDao {
     fun insertAll(facts: List<FactEntity>): Completable
 
     @Query("SELECT * from fact WHERE term = :term")
-    fun loadFacts(term: String): Flowable<List<FactEntity>>
+    fun loadFacts(term: String): Single<List<FactEntity>>
 
     @Query("SELECT * from fact order by RANDOM() LIMIT 10")
     fun loadRandomFacts(): Single<List<FactEntity>>

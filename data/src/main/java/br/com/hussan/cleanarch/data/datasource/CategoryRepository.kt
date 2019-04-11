@@ -5,7 +5,7 @@ import br.com.hussan.cleanarch.data.RetryWithDelay
 import br.com.hussan.cleanarch.data.cache.CategoryCache
 import br.com.hussan.cleanarch.domain.Category
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 class CategoryRepository(
     private val api: AppApi,
@@ -28,11 +28,11 @@ class CategoryRepository(
         } else Completable.complete()
     }
 
-    override fun getCategories(): Flowable<List<Category>> = cache.getCategories()
+    override fun getCategories(): Single<List<Category>> = cache.getCategories()
 
 }
 
 interface CategoryDatasource {
     fun saveCategories(): Completable
-    fun getCategories(): Flowable<List<Category>>
+    fun getCategories(): Single<List<Category>>
 }

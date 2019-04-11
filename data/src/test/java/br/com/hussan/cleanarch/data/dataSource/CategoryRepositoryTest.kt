@@ -8,7 +8,7 @@ import br.com.hussan.cleanarch.data.mock
 import br.com.hussan.cleanarch.domain.Category
 import com.google.gson.Gson
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 import junit.framework.TestCase
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
@@ -65,7 +65,7 @@ class CategoryRepositoryTest {
 
         val categories = listOf(Category(1, "Category"))
 
-        `when`(cache.getCategories()).thenReturn(Flowable.just(categories))
+        `when`(cache.getCategories()).thenReturn(Single.just(categories))
 
         repository.getCategories()
 

@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import br.com.hussan.cache.cleanarch.model.CategoryEntity
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface CategoryDao {
@@ -14,6 +14,6 @@ interface CategoryDao {
     fun insertAll(categories: List<CategoryEntity>): Completable
 
     @Query("SELECT * from category order by RANDOM() LIMIT 8")
-    fun loadCategories(): Flowable<List<CategoryEntity>>
+    fun loadCategories(): Single<List<CategoryEntity>>
 
 }

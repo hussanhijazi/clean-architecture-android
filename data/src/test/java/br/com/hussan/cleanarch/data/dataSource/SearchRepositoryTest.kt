@@ -6,7 +6,7 @@ import br.com.hussan.cleanarch.data.datasource.SearchRepository
 import br.com.hussan.cleanarch.data.mock
 import br.com.hussan.cleanarch.domain.Search
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,7 +35,7 @@ class SearchRepositoryTest {
 
         val searches = listOf(Search("search"))
 
-        `when`(cache.getSearches()).thenReturn(Flowable.just(searches))
+        `when`(cache.getSearches()).thenReturn(Single.just(searches))
 
         repository.getSearches().test().apply {
             assertValue(searches)
@@ -49,7 +49,7 @@ class SearchRepositoryTest {
 
         val exception = Exception()
 
-        `when`(cache.getSearches()).thenReturn(Flowable.error(exception))
+        `when`(cache.getSearches()).thenReturn(Single.error(exception))
 
         repository.getSearches().test()
             .assertError(exception)
