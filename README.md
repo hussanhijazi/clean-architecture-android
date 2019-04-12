@@ -1,56 +1,61 @@
+#Clean Architecture
+App made with the Chuck Norris API - https://api.chucknorris.io/.
 
-# Clean Architecture
-App em usando a api do Chuck Norris https://api.chucknorris.io/.
+## Code
+Using "Clean Architecture" based on Antonio Leivas and BufferApp implementations.
 
-## Código
-Estou usando *Clean Architecture* baseada na implementação do Antonio Leiva e da BufferApp.
 
-### Módulos
+### Modules
 #### domain
-Nesse módulo temos os models(*entities*).
+In this module, you will find all models (entities)
 
 #### app
-Nesse módulo temos as classes *Android* e a UI.
+In this module, you will find all Android classes and UI.
 
 #### data
-Nesse módulo temos os *interfaces* / *datasources*, api e repositórios.
+In this module you will find all the interfaces/datasources, apis and repos.
 
 #### cache
-Nesse módulo fazemos as gravação dos dados *offline*, esse módulo depende do *Android*, pois usamos *Room* para gravação dos dados. Usamos um *mapper* para transformar entidade do *Room* para entidade da aplicação.
+Where all *offline* data writing occurs, this module depends on *Android* due the use of *Room* for this writing. It also uses a *mapper* to convert the Room entity into application entity.
 
 #### usecases
-Nesse módulo temos os *usescases* / *interactors*.
+In this module you will find all *usecases* / *iteractors*.
 
-## Alguns pontos
+## Some observations
 
-### Módulo Cache
-Criamos o módulo *cache* para não colocar depedência do *Android* no módulo data. O módulo *data* tem uma *interface* para ser implementada no *cache*.
+### Cache Module
+Created in order to avoid inserting/injecting *Android* dependencies into the data module. Hence, the *data* module has an *interface* to be implemented on *cache*
 
 ### Mapper
-Usamos um *mapper* para que o mapemento da *@Entity* do *Room* no módulo cache para a *entity* da aplicação. Assim evitando de passar *@Entity* onde os módulos que não tem *Android*.
+Maps up the *Room* *@Entity* at the cache module and passes it into the application *entity*. Hence avoiding *@Entity* to go thru non *Android* modules.
+
 
 ### Koin
-Usamos o *Koin* para injeção de depêndencias, por achar ele de simples uso e atende a necessidade.
+Used for dependency injection (easy to use and fulfills all requirements here).
 
-### Integração Contínua
-Usamos o Bitrise.io para integração contínua.
 
-## Testes
-Temos testes nos módulos: *app*, *cache*, *data*, e *usecases*.
+### Continuous Integration 
+Using Bitrise.io for this purpose.
+
+
+## Testing
+Tests written for the modules: *app*, *cache*, *data* and *usecases*.
+
 
 #### app
-Nesse módulo testamos os *ViewModels *e as *Activities*. No teste *FactsActivityTest*, verificamos o tamanho do texto no *RecyclerView* esta de acordo com a lógica do tamanho da fonte e se a categoria esta sendo setada como *UNCATEGORIZED*. Em *SearchActivityTest*, verificamos se existem termos duplicados no *RecyclerView* de buscas recentes.
+In this module are tested *ViewModels* and *Activities*. In the *FactsActivityTest* we can verify if the text length at the *RecyclerView* respects the length logic from the source and if the category is being set to *UNCATEGORIZED*. In *SearchActivityTest*, we can verify if there are duplicated values from recent searches at *RecyclerView* 
 
 #### cache
-Nesse módulo testamos a gravação e carregamento dos dados no *Room*.
+Here we test the write and retrieve actions for the data in *Room*.
 
 #### data
-Nesse módulo testamos os repositórios.
+Here we test all repos.
+
 
 #### usecases
-Nesse módulo testamos os *usescases*.
+Here we test all *usecases*
 
-## Referências
-* Artigo: https://antonioleiva.com/clean-architecture-android/
+
+## References
+* Post: https://antonioleiva.com/clean-architecture-android/
 * BufferApp: https://github.com/bufferapp/clean-architecture-components-boilerplate
-
