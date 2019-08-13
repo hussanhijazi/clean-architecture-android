@@ -42,7 +42,9 @@ class FactsActivity : AppCompatActivity() {
 
         setupRecyclerViewFacts()
         getCategories()
-        getRandomFacts()
+
+        if (savedInstanceState == null)
+            getRandomFacts()
 
     }
 
@@ -77,7 +79,7 @@ class FactsActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState?.let {
-            factsAdapter.setItems(viewModel.getResultFacts().value ?: return)
+            factsAdapter.setItems(viewModel.resultsFacts.value ?: return)
         }
     }
 

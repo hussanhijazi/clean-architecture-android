@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd "$(dirname "$0")"
 cd ..
 ./gradlew :app:test
 ./gradlew :app:connectedAndroidTest

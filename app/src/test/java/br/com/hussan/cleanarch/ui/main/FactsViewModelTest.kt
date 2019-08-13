@@ -1,6 +1,7 @@
 package br.com.hussan.cleanarch.ui.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import br.com.hussan.cleanarch.data.mapper.FactViewMapper
 import br.com.hussan.cleanarch.domain.Fact
 import br.com.hussan.cleanarch.domain.Search
 import br.com.hussan.cleanarch.usecases.GetFacts
@@ -20,12 +21,14 @@ class FactsViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
     private val getFactsCase: GetFacts = mock()
     private val saveCategoryCase: SaveCategories = mock()
-    private var saveSearch: SaveSearch = mock()
+    private val saveSearch: SaveSearch = mock()
+    private val mapper = FactViewMapper()
     private lateinit var mViewModel: FactsViewModel
+
 
     @Before
     fun setUp() {
-        mViewModel = FactsViewModel(getFactsCase, saveCategoryCase, saveSearch)
+        mViewModel = FactsViewModel(getFactsCase, saveCategoryCase, saveSearch, mapper)
     }
 
     @Test
@@ -40,7 +43,7 @@ class FactsViewModelTest {
 
         mViewModel.getFacts(query)
             .test()
-            .assertValue(facts)
+            .assertValue(facts.map(mapper::mapToView))
             .assertComplete()
 
         verify(getFactsCase).invoke(query)

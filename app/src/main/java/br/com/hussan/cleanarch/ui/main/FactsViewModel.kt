@@ -1,5 +1,6 @@
 package br.com.hussan.cleanarch.ui.main
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.hussan.cleanarch.data.mapper.FactViewMapper
@@ -20,6 +21,9 @@ class FactsViewModel(
 
     private val results = MutableLiveData<List<FactView>>()
 
+    val resultsFacts: LiveData<List<FactView>>
+        get() = results
+
     fun getFacts(query: String): Observable<List<FactView>> = getFactsCase.invoke(query)
         .map { it.map(mapper::mapToView) }
         .doOnNext { results.postValue(it) }
@@ -31,11 +35,15 @@ class FactsViewModel(
         }
 
     fun getRandomFacts(): Single<List<FactView>> {
-        return getFactsCase.getRandomFacts().map { it.map(mapper::mapToView) }
+        return getFactsCase.getRandomFacts().map {
+            val result = it.map(mapper::mapToView)
+            results.postValue(result)
+            result
+        }
+
     }
 
     fun getCategories() = saveCategoriesCase.invoke()
 
-    fun getResultFacts() = results
 }
 
