@@ -9,7 +9,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import br.com.hussan.cleanarch.AppNavigator
 import br.com.hussan.cleanarch.R
-import br.com.hussan.cleanarch.domain.Fact
+import br.com.hussan.cleanarch.data.model.FactView
 import br.com.hussan.cleanarch.extensions.add
 import br.com.hussan.cleanarch.extensions.hide
 import br.com.hussan.cleanarch.extensions.show
@@ -27,7 +27,7 @@ import org.koin.core.parameter.parametersOf
 class FactsActivity : AppCompatActivity() {
 
     private val viewModel: FactsViewModel by viewModel()
-    private val factsAdapter by lazy { FactsAdapter(::shareFact) }
+    private val factsAdapter by lazy { FactsAdapter(::shareFact, ::goToFact) }
     private val navigator: AppNavigator by inject { parametersOf(this@FactsActivity) }
     private val compositeDisposable = CompositeDisposable()
 
@@ -110,7 +110,7 @@ class FactsActivity : AppCompatActivity() {
             .add(compositeDisposable)
     }
 
-    private fun showFacts(list: List<Fact>) {
+    private fun showFacts(list: List<FactView>) {
         if (list.isNotEmpty()) {
             factsAdapter.setItems(list)
             showRecyclerViewFacts()
@@ -139,13 +139,17 @@ class FactsActivity : AppCompatActivity() {
             progressBar.hide()
     }
 
-    private fun shareFact(fact: Fact) {
+    private fun shareFact(fact: FactView) {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, fact.value)
             type = "text/plain"
         }
         startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
+    }
+
+    private fun goToFact(fact: FactView) {
+        navigator.goToFact(fact)
     }
 
     private fun setupRecyclerViewFacts() {

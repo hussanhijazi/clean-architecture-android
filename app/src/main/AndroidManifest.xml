@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="br.com.hussan.cleanarch.ui.search.SearchActivity"/>
+        <activity android:name="br.com.hussan.cleanarch.ui.detailsfact.DetailFactActivity"/>
     </application>
 
 </manifest>

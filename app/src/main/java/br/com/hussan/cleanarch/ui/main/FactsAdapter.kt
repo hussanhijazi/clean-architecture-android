@@ -5,13 +5,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hussan.cleanarch.R
+import br.com.hussan.cleanarch.data.model.FactView
 import br.com.hussan.cleanarch.databinding.ListItemFactBinding
-import br.com.hussan.cleanarch.domain.Fact
 
-class FactsAdapter(private val clickListenerShare: (Fact) -> Unit) :
+class FactsAdapter(
+    private val clickListenerShare: (FactView) -> Unit,
+    private val clickListenerGoToFact: (FactView) -> Unit
+) :
     RecyclerView.Adapter<FactsAdapter.FactViewHolder>() {
 
-    private var facts: List<Fact> = listOf()
+    private var facts: List<FactView> = listOf()
 
     inner class FactViewHolder(val binding: ListItemFactBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -23,22 +26,25 @@ class FactsAdapter(private val clickListenerShare: (Fact) -> Unit) :
         return FactViewHolder(binding)
     }
 
-    fun setItems(items: List<Fact>) {
+    fun setItems(items: List<FactView>) {
         facts = items
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: FactViewHolder, position: Int) {
         val fact = facts[position]
-        holder.binding.fact = fact
+        holder.binding.apply {
+            this.fact = fact
+            
+            imgFactShare.setOnClickListener {
+                clickListenerShare.invoke(fact)
+            }
 
-        holder.binding.root.setOnClickListener {
-            clickListenerShare.invoke(fact)
+            root.setOnClickListener { clickListenerGoToFact(fact) }
+
+            val cat = fact.category?.let { it } ?: listOf(root.context.getString(R.string.uncategorized))
+            lytFactCategory.setData(cat, null)
         }
-
-        val cat = fact.category?.let { it } ?: listOf(holder.binding.root.context.getString(R.string.uncategorized))
-
-        holder.binding.lytFactCategory.setData(cat, null)
     }
 
     override fun getItemCount() = facts.size
