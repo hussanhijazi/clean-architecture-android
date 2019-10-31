@@ -37,7 +37,7 @@ task clean(type: Delete) {
 task allTests(dependsOn: [':app:connectedAndroidTest', ':cache:connectedAndroidTest', ':data:test', ':usecases:test'])
 
 ext {
-    koinVersion = '1.0.2'
+    koinVersion = '2.0.1'
     rxAndroidVersion = '2.1.1'
     appCompatVersion = '1.1.0-alpha02'
     roomVersion = '2.1.0-alpha04'

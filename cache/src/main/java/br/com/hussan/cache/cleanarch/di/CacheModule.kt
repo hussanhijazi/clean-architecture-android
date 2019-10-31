@@ -11,7 +11,7 @@ import br.com.hussan.cache.cleanarch.mapper.SearchEntityMapper
 import br.com.hussan.cleanarch.data.cache.CategoryCache
 import br.com.hussan.cleanarch.data.cache.FactCache
 import br.com.hussan.cleanarch.data.cache.SearchCache
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 val cacheModule = module {
     single {
