@@ -9,7 +9,7 @@
 
         <variable
                 name="fact"
-                type="br.com.hussan.cleanarch.data.model.FactView"/>
+                type="br.com.hussan.cleanarch.data.model.FactViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -2,7 +2,7 @@ package br.com.hussan.cleanarch
 
 import android.app.Activity
 import android.os.Bundle
-import br.com.hussan.cleanarch.data.model.FactView
+import br.com.hussan.cleanarch.data.model.FactViewModel
 import br.com.hussan.cleanarch.extensions.navigate
 import br.com.hussan.cleanarch.extensions.navigateForResult
 import br.com.hussan.cleanarch.ui.detailsfact.DetailFactActivity
@@ -18,9 +18,9 @@ class AppNavigator(private val activity: Activity) {
         activity.navigateForResult<SearchActivity>(requestCode)
     }
 
-    fun goToFact(fact: FactView) {
+    fun goToFact(factModel: FactViewModel) {
         activity.navigate<DetailFactActivity>(Bundle().apply {
-            putParcelable(FACT, fact)
+            putParcelable(FACT, factModel)
         })
     }
 }

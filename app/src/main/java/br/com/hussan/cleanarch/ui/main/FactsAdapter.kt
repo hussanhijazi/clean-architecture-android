@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hussan.cleanarch.R
-import br.com.hussan.cleanarch.data.model.FactView
+import br.com.hussan.cleanarch.data.model.FactViewModel
 import br.com.hussan.cleanarch.databinding.ListItemFactBinding
 
 class FactsAdapter(
-    private val clickListenerShare: (FactView) -> Unit,
-    private val clickListenerGoToFact: (FactView) -> Unit
+    private val clickListenerShare: (FactViewModel) -> Unit,
+    private val clickListenerGoToFact: (FactViewModel) -> Unit
 ) :
     RecyclerView.Adapter<FactsAdapter.FactViewHolder>() {
 
-    private var facts: List<FactView> = listOf()
+    private var factModels: List<FactViewModel> = listOf()
 
     inner class FactViewHolder(val binding: ListItemFactBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -26,13 +26,13 @@ class FactsAdapter(
         return FactViewHolder(binding)
     }
 
-    fun setItems(items: List<FactView>) {
-        facts = items
+    fun setItems(items: List<FactViewModel>) {
+        factModels = items
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: FactViewHolder, position: Int) {
-        val fact = facts[position]
+        val fact = factModels[position]
         holder.binding.apply {
             this.fact = fact
             
@@ -47,6 +47,6 @@ class FactsAdapter(
         }
     }
 
-    override fun getItemCount() = facts.size
+    override fun getItemCount() = factModels.size
 
 }

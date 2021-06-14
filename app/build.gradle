@@ -1,25 +1,29 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         applicationId "br.com.hussan.cleanarch"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
-    androidExtensions {
-        experimental = true
+//    androidExtensions {
+//        experimental = true
+//    }
+
+    buildFeatures {
+        // Enables Jetpack Compose for this module
+        compose true
+        dataBinding true
     }
-    dataBinding {
-        enabled = true
-    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,6 +31,15 @@ android {
 
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
 }
 dependencies {
 
@@ -36,7 +49,7 @@ dependencies {
     implementation project(':cache')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.core:core-ktx:$androidxCode"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
@@ -49,6 +62,20 @@ dependencies {
 
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+
+
+    implementation 'androidx.compose.ui:ui:1.0.0-beta01'
+    // Tooling support (Previews, etc.)
+    implementation 'androidx.compose.ui:ui-tooling:1.0.0-beta01'
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation 'androidx.compose.foundation:foundation:1.0.0-beta01'
+    // Material Design
+    implementation 'androidx.compose.material:material:1.0.0-beta01'
+    // Material design icons
+    implementation 'androidx.compose.material:material-icons-core:1.0.0-beta01'
+    implementation 'androidx.compose.material:material-icons-extended:1.0.0-beta01'
+    // Integration with activities
+    implementation 'androidx.activity:activity-compose:1.3.0-alpha03'
 
     testImplementation "junit:junit:$jUnitVersion"
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
@@ -64,4 +91,7 @@ dependencies {
 
     debugImplementation "com.amitshekhar.android:debug-db:$dbDebug"
 
+}
+kapt {
+    correctErrorTypes true
 }

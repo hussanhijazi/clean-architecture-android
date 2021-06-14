@@ -5,27 +5,32 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import br.com.hussan.cleanarch.R
+import br.com.hussan.cleanarch.databinding.ActivitySearchBinding
 import br.com.hussan.cleanarch.domain.Search
 import br.com.hussan.cleanarch.extensions.add
 import br.com.hussan.cleanarch.ui.main.FactsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class SearchActivity : AppCompatActivity() {
     private val viewModel: SearchViewModel by viewModel()
     private val searchAdapter by lazy { SearchAdapter(::searchClicked) }
     private val compositeDisposable = CompositeDisposable()
 
+    val binding: ActivitySearchBinding by lazy {
+        DataBindingUtil.setContentView(
+            this, R.layout.activity_search
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
 
         setupSearchRecyclerView()
         setupSearchListener()
@@ -34,7 +39,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupSearchRecyclerView() {
-        rvSearches.run {
+        binding.rvSearches.run {
             adapter = searchAdapter
             val dividerItemDecoration = DividerItemDecoration(
                 context,
@@ -59,7 +64,7 @@ class SearchActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                lytCategories.setData(it.map { it.name ?: "" }, ::categoryClicked)
+                binding.lytCategories.setData(it.map { it.name ?: "" }, ::categoryClicked)
             }, {})
             .add(compositeDisposable)
     }
@@ -73,9 +78,9 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupSearchListener() {
-        edtSearch.setOnEditorActionListener { _, actionId, _ ->
+        binding.edtSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                setQuery(edtSearch.text.toString())
+                setQuery(binding.edtSearch.text.toString())
             }
             false
         }
